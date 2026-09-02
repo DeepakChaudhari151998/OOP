@@ -7,10 +7,6 @@ interface SubjectInterface {
     notify();
 }
 
-interface Observer {
-    updateInfo();
-}
-
 
 class SubjectClass implements SubjectInterface {
     private observers: Observer[] = [];
