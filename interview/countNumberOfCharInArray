@@ -1,0 +1,14 @@
+//Check the bracket are properly close
+const arr = ['a','b','c','a','d','c','b']
+
+const obj = {}
+
+for (let i=0;i<arr.length;i++){
+    if(Object.keys(obj).includes(arr[i])){
+        obj[arr[i]]+=1
+    } else {
+        obj[arr[i]] =1
+    }
+}
+
+console.log(obj)
