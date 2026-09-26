@@ -1,0 +1,32 @@
+//Move  all zero at  the end of array
+
+const arr =[0,1,1,0,5]
+
+let j = 0
+
+for(let i=0; i<arr.length; i++){
+    if(arr[i]!=0){
+        [arr[j],arr[i]] = [arr[i], arr[j]]
+        j++
+    }
+}
+
+console.log(arr)
+
+
+//Move  all zero at  the start of array
+const arr_new =[0,1,1,0,5]
+
+let k = arr_new.length-1;
+
+
+for(let i=arr_new.length-1;i>=0;i--){
+    if(arr_new[i]!==0){
+        [arr_new[i],arr_new[k]] = [arr_new[k],arr_new[i]]
+        k--
+    }
+}
+
+console.log(arr_new)
+
+
