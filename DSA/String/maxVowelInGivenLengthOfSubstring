@@ -5,7 +5,7 @@
 const str = "leetcode"
 function isVowel(ch){
 
-    return [a,e,i,o,u].includes(ch)
+    return ["a","e","i","o","u"].includes(ch)
 }
 function maxVowelSubstringOfGienLength(str,k){
     let max=0
