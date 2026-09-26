@@ -1,4 +1,4 @@
-//Check the bracket are properly close
+//Check the number of char
 const arr = ['a','b','c','a','d','c','b']
 
 const obj = {}
@@ -8,6 +8,18 @@ for (let i=0;i<arr.length;i++){
         obj[arr[i]]+=1
     } else {
         obj[arr[i]] =1
+    }
+}
+
+console.log(obj)
+//---------------------------------------------------------------------
+const str = 'abcabccbaa'
+const obj = {}
+for(let ch of str){
+    if(Object.keys(obj).includes(ch)){
+        obj[ch]+=1
+    } else{
+        obj[ch]=1
     }
 }
 
