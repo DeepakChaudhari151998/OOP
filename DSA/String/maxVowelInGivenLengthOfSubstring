@@ -1,0 +1,35 @@
+// Given a string s and an integer k, return the maximum number of vowel letters in any substring of s with length k
+
+// const str="abciiidef"
+// const str ="aeiou"
+const str = "leetcode"
+function isVowel(ch){
+
+    return [a,e,i,o,u].includes(ch)
+}
+function maxVowelSubstringOfGienLength(str,k){
+    let max=0
+    let count = 0
+    for(let i=0;i<k;i++){
+        if(isVowel(str[i])){
+            count++
+        }
+    }
+    max = count
+    for(let j=k;j<str.length;j++){
+        if(isVowel(str[j])){
+            count++
+        }
+        if(isVowel(str[j-k])){
+            count--
+        }
+        max = Math.max(max,count)
+        if(k==max){
+            return k
+        }
+    }
+
+    return max
+}
+
+console.log(maxVowelSubstringOfGienLength(str,4))
