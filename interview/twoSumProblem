@@ -1,0 +1,17 @@
+//Two sum problem
+//We need to find two numbers whose sum is 9:
+
+const arr =[2,7,10,11]
+
+const map = new Map()
+
+const target = 9
+
+for(let i=0;i<arr.length;i++){
+    const comp = target - arr[i]
+    if(map.has(comp)){
+        console.log(arr[map.get(comp)], arr[i])
+        break;
+    }
+    map.set(arr[i],i)
+}
