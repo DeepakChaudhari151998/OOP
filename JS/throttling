@@ -1,0 +1,28 @@
+// Throttling means limiting how often a function can execute within a certain time period.
+
+// For example, if an event fires 100 times in 1 second, you might want your function to execute only once every 500ms.
+function throttle(fn,delay){
+    let lastCall = 0
+    return function(...args){
+        if(Date.now()-lastCall>delay){
+            lastCall=Date.now()
+            fn.apply(this,args)
+        }
+    }
+
+}
+
+
+
+
+function throttle_print(value){
+    console.log(value)
+}
+
+
+const print = throttle(throttle_print, 500)
+print('h')
+print('e')
+print('l')
+print('l')
+print('o')
