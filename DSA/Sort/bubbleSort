@@ -1,0 +1,36 @@
+//Bubble Sort
+// | Case        | Time Complexity | Why                                                |
+// | ----------- | --------------- | -------------------------------------------------- |
+// | Best    | O(n)        | Array is already sorted, with an optimized version |
+// | Average | O(n²)       | Multiple comparisons and swaps                     |
+// | Worst   | O(n²)       | Array is in reverse order                          |
+// | Space   | O(1)        | Sorts in-place                                     |
+
+// When should you use Bubble Sort?
+
+// Bubble Sort is generally useful when:
+
+//  Learning sorting algorithms — very easy to understand and implement.
+//  Interview/DSA practice — sometimes asked to test your understanding of sorting.
+//  Very small datasets — when performance doesn't matter.
+//  Nearly sorted data — especially with the swapped optimization.
+
+// When NOT to use it
+// For real-world applications with large datasets, Bubble Sort is usually not a good choice because O(n²) becomes slow quickly
+
+const arr = [4,3,2,1,9,0,6]
+// const arr =[1,2,3,4,5]
+for (let i=0;i<arr.length-1;i++){
+    let swapped = false
+    for(let j=0;j<arr.length-i-1;j++){
+        if(arr[j]>arr[j+1]){
+            [arr[j],arr[j+1]] = [arr[j+1],arr[j]]
+            swapped = true
+        } 
+    }
+    if(!swapped){
+        break
+    }
+}
+
+console.log(arr)
