@@ -1,0 +1,24 @@
+//Second max elememt
+
+const arr =[-1, -5, -2, -10]
+let minElement = Infinity
+let secondMinElement = Infinity
+
+function secondMinElementFunction(){
+    for(let i=0;i<arr.length;i++){
+        if(arr[i]<minElement){
+            minElement = arr[i]
+        } else if(arr[i]> minElement && arr[i]<secondMinElement){
+            secondMinElement = arr[i]
+        }
+    }
+
+    return secondMinElement
+}
+
+if(arr.length==0 || arr.length == 1){
+    console.log("No secondMinElement")
+} else {
+    const secondMinElement = secondMinElementFunction()
+    console.log(secondMinElement === Infinity ? "No secondMinElement" : secondMinElement)
+}
