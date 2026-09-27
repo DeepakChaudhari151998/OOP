@@ -8,9 +8,7 @@ function secondMaxNumber(){
         if(arr[i]>maxElement){
             secondMax =  maxElement
             maxElement = arr[i]
-        }
-
-        if(arr[i]>secondMax && arr[i]<maxElement){
+        } else if(arr[i]>secondMax && arr[i]<maxElement){
             secondMax = arr[i]
         }
     }
