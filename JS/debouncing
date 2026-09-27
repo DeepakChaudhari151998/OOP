@@ -1,0 +1,66 @@
+//Debouncing delays function execution until a specified period has passed without another invocation of the function.
+function debounce(fn,deplay){
+    let timmer;
+    return function(...args){
+        clearTimeout(timmer)
+       timmer= setTimeout(()=>{
+            fn.apply(this,args)
+        }, deplay)
+    }
+}
+function debounceSearch(value){
+    console.log(value)
+}
+
+const search = debounce(debounceSearch,500)
+
+search('H')
+search('e')
+search('l')
+
+// --------------------------------------------------------------------------------------------------------------------------------
+// call()  → execute now
+// apply() → execute now
+// bind()  → create function for later
+
+//apply take argument as an array and pass as seperate parameter to function which is called
+function test(a, b, c) {
+    console.log(a, b, c)
+}
+
+const args = [10, 20, 30,null]
+
+test.apply(null, args)
+
+//Call take value as a seperate argument per paramter of function
+
+function greet(name, age) {
+    console.log(name, age)
+}
+
+greet.call(null, "Deepak", 28)
+
+//bind() creates a new function where you permanently set the value of this.
+
+function greet_bind(greeting, punctuation) {
+    console.log(greeting + " " + this.name + punctuation)
+}
+
+const person = {
+    name: "Deepak"
+}
+
+const newGreet = greet_bind.bind(person, "Hello", "!")
+
+newGreet()
+
+
+
+//Example of resting operator
+export function sum(a, b) {
+    return a + b;
+}
+
+
+const arr =[1,2]
+console.log(sum(...arr))
