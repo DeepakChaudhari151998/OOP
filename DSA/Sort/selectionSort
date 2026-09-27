@@ -1,0 +1,37 @@
+//Section sort: find the minimum element and put at start index 
+// | Case                 | Time Complexity |
+// | -------------------- | --------------: |
+// | **Best case**        |       **O(n²)** |
+// | **Average case**     |       **O(n²)** |
+// | **Worst case**       |       **O(n²)** |
+// | **Space complexity** |        **O(1)** |
+
+
+// When to use Selection Sort?
+
+// Selection Sort can be useful when:
+
+// The dataset is small
+// Memory usage needs to be minimal → O(1) extra space
+// You want to minimize the number of swaps — standard Selection Sort performs at most n - 1 swaps
+// You're learning/implementing basic sorting algorithms
+// When not to use it?
+
+// For large datasets, Selection Sort is generally inefficient because it always takes O(n²) time. 
+// More efficient algorithms such as Merge Sort, Quick Sort, or Heap Sort are typically preferred.
+
+
+
+const arr = [4,3,2,1]
+
+for(let i=0;i<arr.length;i++){
+    let minIndex = i
+    for(let j=i+1; j<arr.length;j++){
+        if(arr[j]<arr[minIndex]){
+            minIndex=j
+        }
+    }
+    [arr[i], arr[minIndex]] = [arr[minIndex],arr[i]] 
+}
+
+console.log(arr)
