@@ -1,0 +1,34 @@
+//Insertion sort  -> Insert element at before index 
+// | Case                 | Time Complexity | Explanation                                              |
+// | -------------------- | --------------- | -------------------------------------------------------- |
+// | **Best Case**        | **O(n)**        | Array is already sorted; only one comparison per element |
+// | **Average Case**     | **O(n²)**       | Elements usually need to be shifted                      |
+// | **Worst Case**       | **O(n²)**       | Array is in reverse order; maximum shifting              |
+// | **Space Complexity** | **O(1)**        | Sorts the array in-place                                 |
+
+// When to use Insertion Sort?
+
+// Insertion Sort is a good choice when:
+
+// The array is small
+// For small datasets, its simplicity can be useful.
+// The data is nearly sorted 
+// This is one of its biggest advantages. If only a few elements are out of place, it can be very efficient.
+// Data arrives incrementally
+// You can insert a new element into an already sorted portion without sorting everything again.
+// You need an in-place algorithm
+// It requires only O(1) extra space.
+//Inplace sorting
+arr = [4,3,2,1]
+
+for(i=1;i<arr.length;i++){
+    let key = arr[i]
+    let j = i-1
+    while(j>=0 && arr[j]> key){
+        arr[j+1] = arr[j]
+        j--
+    }
+    arr[j+1] = key
+}
+
+console.log(arr)
