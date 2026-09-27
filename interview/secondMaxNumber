@@ -1,0 +1,24 @@
+//Second max elememt
+const arr =[5,5,5,5]
+let maxElement = -Infinity
+let secondMax = -Infinity
+function secondMaxNumber(){
+    for(let i=0;i<=arr.length;i++){
+
+        if(arr[i]>maxElement){
+            secondMax =  maxElement
+            maxElement = arr[i]
+        }
+
+        if(arr[i]>secondMax && arr[i]<maxElement){
+            secondMax = arr[i]
+        }
+    }
+    return secondMax
+}
+if(arr.length ==0 ||arr.length==1){
+    console.log("No secondMax")
+} else {
+    const secondMax = secondMaxNumber()
+    console.log(secondMax == -Infinity? "No secondMax": secondMax )
+}   
