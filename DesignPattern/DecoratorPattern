@@ -1,0 +1,40 @@
+//Decorator pattern
+// The Decorator Pattern is a design pattern used to add new behavior to an existing object/function without changing its original code.
+//In below code we added the discount to payment before bill and also added the login 
+// call sequence Discount-->logging-->Payment
+
+//Decoratore patter very useful to check the authentication ->Bank details->payment
+
+class Payment{
+     pay(amount){
+        console.log(amount)
+     }
+}
+
+class Discount{
+    constructor(payment){
+        this.payment = payment
+    }
+
+    pay(amount){
+        amount-=5
+        this.payment.pay(amount)
+    }
+}
+
+class Logging{
+    constructor(payment){
+        this.payment = payment
+    }
+
+    pay(amount){
+        console.log("Logging amount",amount)
+        this.payment.pay(amount)
+    }
+}
+
+let obj= new Payment()
+obj = new Logging(obj)
+obj = new Discount(obj)
+
+obj.pay(10)
