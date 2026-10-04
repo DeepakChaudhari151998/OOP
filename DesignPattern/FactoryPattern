@@ -1,0 +1,65 @@
+/*The Factory Pattern is one of the most useful design patterns to understand because it solves a very common problem:
+
+"I need an object, but I don't want the code that uses the object to worry about how that object is created."
+
+Here in below example object of Email, SMS, Push is created by factory method but use that create the object dont know where is created 
+and How is created any pareameter is passed to the construtor to specific class. Here we can hide the some logic here like checking auth,
+apikey, email key and all.
+
+2)If we want to add the new notification type then we only need to do the code change in factory class. 
+3)If we change in construtor of particular class and we created the object using new then we will have headache of change it every place
+now we only need to do at one place
+
+see the code also of factory + decoratory pattern. Those code is next version of it
+*/
+enum NotificationType{
+    Email ="email",
+    SMS = "sms",
+    Push = "push"
+}
+interface Notifcation {
+    send(message:string): void
+}
+
+
+class EmailNotification implements Notifcation{
+    send(message:string){
+        console.log(message)
+    }
+}
+
+class SMSNotification implements Notifcation{
+    send(message:string){
+        console.log(message)
+    }
+}
+
+class PushNotification implements Notifcation{
+    send(message:string){
+        console.log(message)
+    }
+}
+
+class NotifcationFactory {
+    static create(type:NotificationType) {
+        switch(type){
+            case NotificationType.Email:{
+                return new EmailNotification()
+            }
+            case NotificationType.SMS:{
+                return new SMSNotification()
+            }
+            case NotificationType.Push:{
+                return new PushNotification()
+            }
+            default:
+            throw new Error("Unsupported type")
+        }
+    }
+}
+const email = NotifcationFactory.create(NotificationType.Email)
+email.send("Welcome")
+const sms = NotifcationFactory.create(NotificationType.SMS)
+sms.send("Your OTP is 1234")
+const push = NotifcationFactory.create(NotificationType.Push)
+push.send("You have a new message")
