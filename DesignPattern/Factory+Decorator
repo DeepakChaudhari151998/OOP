@@ -1,0 +1,65 @@
+//Factory + Decorator + PolyMorphism
+
+enum NotificationType{
+    Email ="email",
+    SMS = "sms",
+    Push = "push"
+}
+interface NotificationI {
+    send(message:string): void
+}
+
+
+class EmailNotification implements NotificationI{
+    send(message:string){
+        console.log(message)
+    }
+}
+
+class SMSNotification implements NotificationI{
+    send(message:string){
+        console.log(message)
+    }
+}
+
+class PushNotification implements NotificationI{
+    send(message:string){
+        console.log(message)
+    }
+}
+
+class NotifcationFactory {
+    static create(type:NotificationType) {
+        switch(type){
+            case NotificationType.Email:{
+                return new EmailNotification()
+            }
+            case NotificationType.SMS:{
+                return new SMSNotification()
+            }
+            case NotificationType.Push:{
+                return new PushNotification()
+            }
+            default:
+            throw new Error("Unsupported type")
+        }
+    }
+}
+
+class Decorator implements NotificationI {
+    private obj: NotificationI
+    constructor (obj:NotificationI){
+        this.obj = obj
+    }
+    send(message:string){
+        console.log("Notification Type")
+        this.obj.send(message)
+    }
+}
+const notificationObj = NotifcationFactory.create(NotificationType.Email)
+const decorator = new Decorator(notificationObj)
+decorator.send("Hello")
+const sms = NotifcationFactory.create(NotificationType.SMS)
+sms.send("Your OTP is 1234")
+const push = NotifcationFactory.create(NotificationType.Push)
+push.send("You have a new message")
