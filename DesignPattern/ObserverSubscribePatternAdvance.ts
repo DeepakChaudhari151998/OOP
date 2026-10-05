@@ -7,7 +7,7 @@ interface Subject {
 }
 
 interface Observer {
-    updatedData(subjectObject:Subject)
+    updatedData()
 }
 
 
@@ -29,7 +29,7 @@ class SubjectCreateion implements Subject {
     }
     
     #notify(){
-        this.#observers.forEach((observer)=>observer.updatedData(this))
+        this.#observers.forEach((observer)=>observer.updatedData())
     }
     
     setMeasurement(temp,humidity,windSpeed){
