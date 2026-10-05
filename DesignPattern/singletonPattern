@@ -1,0 +1,30 @@
+//Singleton pattern
+
+class Singleton {
+    private static instance
+    constructor(){
+        if (Singleton.instance){
+            throw new Error ("Use Singleton.GetInstance() to create/get the object")
+        }
+        Singleton.instance = this
+
+    }
+
+    static GetInstance(){
+        if(Singleton.instance){
+            return Singleton.instance
+        }
+        Singleton.instance = this
+        return Singleton.instance
+    }
+}
+
+// const obj_1 = new Singleton()
+// const obj_2 = Singleton.GetInstance()
+
+// console.log(obj_1===obj_2)
+
+const obj_3 = Singleton.GetInstance()
+const obj_4 = Singleton.GetInstance()
+
+console.log(obj_3===obj_4)
