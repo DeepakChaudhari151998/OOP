@@ -1,0 +1,191 @@
+    //                 Notification System
+    //                        |
+    //       ┌────────────────┼─────────────────┐
+    //       ↓                ↓                 ↓
+    //   Singleton          Factory        Abstract Factory
+    //    Logger          Notification       Notification UI
+    //                        |
+    //                 Email/SMS/Push
+    //                        |
+    //                    Decorators
+    //                 ┌──────┴──────┐
+    //                 ↓             ↓
+    //              Logging      Authentication
+    //                        |
+    //                        ↓
+    //                  Notification
+
+enum NotificationType{
+    EMAIL ="email",
+    SMS = "sms",
+    PUSH = "push"
+}
+class Logger {
+
+    private static instance;
+
+    constructor(){
+        if(Logger.instance ){
+            throw new Error("Get instance using Logger.getInstance()")
+        }
+        Logger.instance = this
+    }
+
+    static getInstance(){
+        if(Logger.instance){
+            return Logger.instance
+        }
+        Logger.instance = this
+        return this
+    }
+
+    log(message){
+        console.log("Logger message", message)
+    }
+}
+
+interface NotificationI {
+    send:(message:string)=>void
+}
+
+class Email implements NotificationI {
+    send(message:string){
+       let  logger:Logger
+        try{
+            logger = new Logger()
+        } catch {
+            logger = Logger.getInstance()
+        }
+        logger.log("In Email Notification")
+        console.log("Email Notification", message)
+    }
+}
+
+class SMS implements NotificationI {
+    send(message:string){
+        let  logger:Logger
+        try{
+            logger = new Logger()
+        } catch {
+            logger = Logger.getInstance()
+        }
+        logger.log("In SMS Notification")
+        console.log("SMS Notification", message)
+    }
+}
+
+class Push implements NotificationI {
+    send(message:string){
+let  logger:Logger
+        try{
+            logger = new Logger()
+        } catch {
+            logger = Logger.getInstance()
+        }
+        logger.log("In push Notification")
+        console.log("Push Notification", message)
+    }
+}
+
+class NotificationFactory {
+
+    static create(type:NotificationType){
+        switch(type){
+            case NotificationType.EMAIL:
+            return new Email()
+            case NotificationType.SMS:
+            return new SMS()
+            case NotificationType.PUSH:
+            return new Push()
+        }
+    }
+}
+
+interface Component {
+    render:()=>void
+}
+
+class ModernButton implements Component{
+    render(){
+        console.log("Modern Button render")
+    }
+}
+
+class ModernMessageBox implements Component{
+    render(){
+        console.log("Modern MessageBox render")
+    }
+}
+
+class ClassicButton implements Component{
+    render(){
+        console.log("Classic Button render")
+    }
+}
+
+class ClassicMessageBox implements Component{
+    render(){
+        console.log("Classic MessageBox render")
+    }
+}
+
+
+class UIFactory {
+    createButton(){
+        throw new Error("Need to implement this method")
+    }
+    createMessageBox(){
+        throw new Error("Need to implement this method")
+    }
+
+}
+
+class ModernUIFactory extends UIFactory {
+    createButton(){
+        return new ModernButton()
+    }
+    createMessageBox(){
+       return new ModernMessageBox()
+    }
+}
+
+
+class ClassicUIFactory extends UIFactory {
+    createButton(){
+        return new ClassicButton()
+    }
+    createMessageBox(){
+       return new ClassicMessageBox()
+    }
+}
+
+
+class LoggingDecorator implements NotificationI {
+
+    constructor(private notification: NotificationI) {}
+
+    send(message: string): void {
+
+        const logger = Logger.getInstance();
+
+        logger.log("Notification started");
+
+        this.notification.send(message);
+
+        logger.log("Notification completed");
+    }
+}
+
+const mButton = new ModernUIFactory()
+mButton.createButton().render()
+mButton.createMessageBox().render()
+
+
+const email = NotificationFactory.create(NotificationType.EMAIL)
+email.send("Hi Deepak")
+
+const logger = new LoggingDecorator(email)
+logger.send("Decorator email")
+
+const sms = NotificationFactory.create(NotificationType.SMS)
+sms.send("Hi Deepak")
