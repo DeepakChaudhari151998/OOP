@@ -1,0 +1,99 @@
+// The Abstract Factory Pattern is used when you need to create families of related objects, and you want to make
+//  sure those objects are compatible with each other.
+
+
+//               UI
+//               |
+//        ┌──────┴──────┐
+//        ↓             ↓
+//     Button        Checkbox
+//        |             |
+//    ┌───┴───┐     ┌───┴───┐
+//    ↓       ↓     ↓       ↓
+//  Windows  Mac  Windows   Mac
+interface Button {
+    renderButton(): void;
+}
+
+interface Checkbox {
+    renderCheckbox(): void;
+}
+
+class WindowsButton implements Button{
+
+    renderButton(){
+        console.log("Window Button is created")
+    }
+    
+}
+
+class WindowsCheckbox implements Checkbox{
+
+    renderCheckbox(){
+        console.log("Window Checkbox is created")
+    }
+    
+}
+
+class MacButton implements Button{
+
+    renderButton(){
+        console.log("Mac Button is created")
+    }
+    
+}
+
+class MacCheckbox implements Checkbox{
+
+    renderCheckbox(){
+        console.log("Mac checkbox is created")
+    }
+    
+}
+
+
+abstract class UIFactory{
+    createButton(){
+        throw new Error("THis method need to be implemenet")
+    }
+
+    createCheckbox(){
+        throw new Error("This method need to be implement")
+    }
+}
+
+class WindowsFactory extends UIFactory {
+    createButton(){
+        return new WindowsButton()
+    }
+
+    createCheckbox(){
+        return new WindowsCheckbox()
+    }
+}
+
+
+class MacFactory extends UIFactory {
+    createButton(){
+        return new MacButton()
+    }
+
+    createCheckbox(){
+        return new MacCheckbox()
+    }
+}
+
+
+const winObj = new WindowsFactory()
+const winBtn= winObj.createButton()
+const winCheckbox = winObj.createCheckbox()
+winBtn.renderButton()
+winCheckbox.renderCheckbox()
+
+
+const macObj = new MacFactory()
+const macButton = macObj.createButton()
+const macCheckbox = macObj.createCheckbox()
+
+macButton.renderButton()
+macCheckbox.renderCheckbox()
