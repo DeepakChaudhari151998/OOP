@@ -1,4 +1,5 @@
 /*The Factory Pattern is one of the most useful design patterns to understand because it solves a very common problem:
+Factory's main responsibility is to create and return the object. It normally does not call the object's business methods.
 
 "I need an object, but I don't want the code that uses the object to worry about how that object is created."
 
