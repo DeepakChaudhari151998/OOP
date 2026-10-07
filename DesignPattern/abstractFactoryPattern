@@ -1,16 +1,18 @@
-// The Abstract Factory Pattern is used when you need to create families of related objects, and you want to make
-//  sure those objects are compatible with each other.
+/*The Abstract Factory Pattern is used when you need to create families of related objects, and you want to make
+sure those objects are compatible with each other.
 
 
-//               UI
-//               |
-//        ┌──────┴──────┐
-//        ↓             ↓
-//     Button        Checkbox
-//        |             |
-//    ┌───┴───┐     ┌───┴───┐
-//    ↓       ↓     ↓       ↓
-//  Windows  Mac  Windows   Mac
+               UI
+               |
+        ┌──────┴──────┐
+        ↓             ↓
+     Button        Checkbox
+        |             |
+    ┌───┴───┐     ┌───┴───┐
+    ↓       ↓     ↓       ↓
+  Windows  Mac  Windows   Mac
+
+*/
 interface Button {
     renderButton(): void;
 }
