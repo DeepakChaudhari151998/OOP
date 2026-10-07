@@ -1,0 +1,47 @@
+/*
+Adapter pattern
+Adapter converts the interface of an existing class into the interface that your application expects.
+ */
+
+interface PaymentI{
+    pay:(amount)=>void
+}
+
+
+class Payment implements PaymentI {
+    pay(amount:number){
+        console.log("Amount paid",amount)
+    }
+}
+
+//Third party class
+class PayPal {
+    makePayment(amount:number){
+        console.log("Amount paid using paypal",amount)
+    }
+}
+
+class PaymentAdapter implements PaymentI {
+    private payment
+    constructor(payment:PayPal){
+        this.payment =payment
+    }
+    pay(amount:number){
+       this.payment.makePayment(100)
+    }
+}
+
+// Before no third party payment method now third party paypal integration
+//Here Payment class pay method is use multiple place and when thord party method implement it is not fesible to changes all place
+// so adapter is written that compatible with our Payment class and from that this pay method call
+
+// const payObj = new Payment()
+// payObj.pay(100)
+
+const payPal = new PayPal()   //Third party class object
+const payAdpObj = new PaymentAdapter(payPal)
+payAdpObj.pay(100)
+
+
+//Here if we create object of Payment class multiple place in multiple file then we need to replace with PaymentAdapter class object
+//To solve this use factory method to create the object then need to change at only one place 
