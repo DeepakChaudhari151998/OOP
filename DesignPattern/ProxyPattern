@@ -1,0 +1,48 @@
+/** 
+ * 
+ * 
+*/
+
+
+
+enum Users{
+    ABCD = "abcd",
+    PQR = "pqr"
+}
+
+enum Role{
+    ADMIN ='admin',
+    USER = 'user'
+}
+
+const userRoleMap = new Map<string, string>()
+userRoleMap.set(Users.ABCD, Role.ADMIN)
+userRoleMap.set(Users.PQR, Role.USER)
+
+class TransactionDetails{
+    getTransaction(){
+        console.log("Transaction detail return")
+    }
+
+}
+
+
+class ProxyTransaction{
+    private transactionDetails:TransactionDetails
+    constructor(transactionDetails:TransactionDetails){
+        this.transactionDetails = transactionDetails
+    }
+
+    getTransaction(user:string) {
+        if (userRoleMap.get(user) === Role.ADMIN) {
+            this.transactionDetails.getTransaction();
+        } else {
+            console.log("Access denied");
+        }
+    }
+
+}
+const transactionDetails = new TransactionDetails()
+const proxyTransaction = new ProxyTransaction(transactionDetails )
+proxyTransaction.getTransaction(Users.ABCD)
+proxyTransaction.getTransaction(Users.PQR)
