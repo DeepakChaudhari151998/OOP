@@ -1,0 +1,99 @@
+/*
+Initially, we created a `Payment` class with a `pay()` method. This method is used throughout the codebase.
+
+Later, we decided to integrate third-party payment APIs such as **UPI** and **PayPal**. Since these third-party APIs have their own interfaces and methods, directly replacing the existing `pay()` implementation would require changes across the entire codebase.
+
+To avoid this, we use the **Adapter Pattern**. We create separate adapters, such as `PaymentPayPalAdapter` and `PaymentUPIAdapter`, and implement the existing `pay()` method in each adapter. Internally, the adapter translates the `pay()` call into the corresponding third-party API call.
+
+This allows the existing codebase to continue using the same `pay()` method without requiring changes throughout the application.
+
+The **Factory Pattern** can be used to determine which payment implementation should be created.
+
+For example, if we later add **Credit Card** payment, we only need to:
+
+1. Create a `PaymentCreditCardAdapter`.
+2. Implement the `pay()` method in the adapter.
+3. Add the new adapter to the factory.
+
+The existing codebase does not need to be modified to support the new payment type.
+
+ */
+
+interface PaymentI {
+    pay:(amount)=>void
+}
+
+
+enum PaymentTypeE {
+    UPI ="upi",
+    PAYPAL = "paypal"
+}
+
+class Payment{
+    pay(amount){
+        console.log("Paid amount", amount)
+    }
+}
+
+
+class PayPal{
+    makePayment(amount){
+        console.log("Paypal Paid amount", amount)
+    }
+}
+
+
+
+class UPI{
+    makeTransition(amount){
+        console.log("UPI Paid amount", amount)
+    }
+}
+
+
+
+class PaymentPayPalAdater implements PaymentI{
+    private payObj: PayPal
+    constructor(obj: PayPal){
+        this.payObj = obj
+    }
+
+    pay(amount:number){
+        this.payObj.makePayment(amount)
+    }
+
+}
+
+class PaymentUPIAdater implements PaymentI{
+    private payObj:UPI
+    constructor(obj:UPI){
+        this.payObj = obj
+    }
+
+    pay(amount:number){
+        this.payObj.makeTransition(amount)
+    }
+
+}
+
+class PaymentFactory{
+    static Payment(type:PaymentTypeE){
+        switch(type){
+            case PaymentTypeE.PAYPAL:
+                return new PaymentPayPalAdater(new PayPal())
+            case PaymentTypeE.UPI:
+                return new PaymentUPIAdater(new UPI())
+            default:
+                throw new Error("This type of payment not available")
+        }
+    }
+}
+
+
+const payObj = PaymentFactory.Payment(PaymentTypeE.PAYPAL)
+
+payObj.pay(100)
+
+const payObj_2 = PaymentFactory.Payment(PaymentTypeE.UPI)
+
+payObj_2.pay(100)
