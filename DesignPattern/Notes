@@ -1,3 +1,19 @@
 1)Identify the aspects of your application that vary and seperate them from what stays the same
 2)Program to an interface, not an implementation
 3)Favor composition over inheritance
+
+
+| Rank | Pattern              | Type                | Common use case                                    |
+| ---- | -------------------- | ------------------- | -------------------------------------------------- |
+| 1    | Dependency Injection | Architectural / IoC | Inject services into Angular components            |
+| 2    | Factory Method       | Creational          | Create objects based on a type                     |
+| 3    | Strategy             | Behavioral          | Switch payment, sorting, or validation algorithms  |
+| 4    | Observer             | Behavioral          | Events, RxJS, reactive data                        |
+| 5    | Singleton            | Creational          | One shared instance of a service                   |
+| 6    | Adapter              | Structural          | Integrate third-party APIs with your code          |
+| 7    | Decorator            | Structural          | Add behavior without modifying the original class  |
+| 8    | Facade               | Structural          | Provide a simple interface over complex operations |
+| 9    | Proxy                | Structural          | Control access, caching, or lazy loading           |
+| 10   | Builder              | Creational          | Construct complex objects step by step             |
+| 11   | State                | Behavioral          | Change behavior according to the current state     |
+| 12   | Command              | Behavioral          | Encapsulate an action as an object                 |
