@@ -1,5 +1,5 @@
 /* 
-
+Type: Architectural / IoC
 Dependency Injection (DI) Pattern — Deep Explanation
 Since you're learning design patterns in JavaScript and TypeScript, let's understand Dependency Injection from the basics, with real-world examples and code.
 1. What is Dependency Injection?
