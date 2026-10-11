@@ -1,0 +1,144 @@
+/*
+
+Type: Creational Design pattern
+It helps you construct a complex object step by step instead of passing many arguments into one constructor or writing a large object
+with lots of optional properties.
+
+Builder is especially useful when:
+- Many optional parameters: An object has many settings, and different callers need different combinations.
+- Complex validation: The object should not be created until its configuration is valid.
+- Multiple construction steps: An object needs to be configured progressively.
+- Readable construction: You want calls such as .setRAM(16).enableBackup() instead of remembering argument positions.
+- Immutable final objects: You want to configure an object first and then create a final object that callers cannot modify.
+Builder is usually unnecessary for a simple object with only two or three straightforward properties.
+
+*/
+interface VM {
+    name: string,
+    cpu: number,
+    ram: number,
+    os: string,
+    region: string,
+    diskSize: number,
+    publicIp: boolean,
+    backupEnabled: boolean
+}
+class VirtualMachine{
+    private name: string
+    private cpu: number
+    private ram: number
+    private os: string
+    private region: string
+    private diskSize: number
+    private publicIp: boolean
+    private backupEnabled: boolean
+    constructor(config:VM){
+        this.name = config.name;
+        this.cpu = config.cpu;
+        this.ram = config.ram;
+        this.os = config.os;
+        this.region = config.region;
+        this.diskSize = config.diskSize;
+        this.publicIp = config.publicIp;
+        this.backupEnabled = config.backupEnabled;
+    }
+
+    showConfig() {
+        console.log(this);
+    }
+}
+
+class VirtualMachineBuilder{
+    private config:VM ={} as VM
+    constructor(){
+        this.config = {
+            name: null,
+            cpu: 2,
+            ram: 4,
+            os: "Linux",
+            region: "Central India",
+            diskSize: 50,
+            publicIp: false,
+            backupEnabled: false
+        };
+    }
+
+    setName(name:string){
+        this.config.name = name
+        return this
+    }
+
+    setCPU(core:number){
+        this.config.cpu = core
+        return this
+    }
+
+    setRAM(ram:number) {
+        this.config.ram = ram;
+        return this;
+    }
+
+    setOS(os:string) {
+        this.config.os = os;
+        return this;
+    }
+
+    setRegion(region:string) {
+        this.config.region = region;
+        return this;
+    }
+
+    setDiskSize(size:number) {
+        this.config.diskSize = size;
+        return this;
+    }
+
+    enablePublicIP() {
+        this.config.publicIp = true;
+        return this;
+    }
+
+    enableBackup() {
+        this.config.backupEnabled = true;
+        return this;
+    }
+
+    //Object creation method of VirtualMachine
+
+    build(){
+        if(!this.config.name){
+            throw new Error("VM name is required")
+        }
+
+        if(this.config.cpu < 1 || this.config.ram<1){
+            throw new Error("CPU and RAM must be positive");
+        }
+
+        return new VirtualMachine({...this.config})
+    }
+}
+
+
+const vm = new VirtualMachineBuilder()
+    .setName("dev-vm")
+    .setCPU(4)
+    .setRAM(16)
+    .setOS("Ubuntu")
+    .setRegion("Central India")
+    .setDiskSize(100)
+    .enableBackup()
+    .build();
+
+
+vm.showConfig();
+
+const prodVM = new VirtualMachineBuilder()
+    .setName("prod-vm")
+    .setCPU(8)
+    .setRAM(32)
+    .setDiskSize(500)
+    .enableBackup()
+    .build();
+
+
+prodVM.showConfig();
