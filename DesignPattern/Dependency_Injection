@@ -1,0 +1,52 @@
+/* 
+
+Dependency Injection (DI) Pattern — Deep Explanation
+Since you're learning design patterns in JavaScript and TypeScript, let's understand Dependency Injection from the basics, with real-world examples and code.
+1. What is Dependency Injection?
+Dependency Injection means giving an object the dependencies it needs instead of making that object create those dependencies itself.
+Let's understand the two important words:
+- Dependency: An object or service that another object needs to do its job.
+- Injection: Supplying that required object from outside.
+For example, suppose you have a PaymentService that needs a logger.
+
+
+Why should we use Dependency Injection?
+There are four major benefits.
+
+1. Easy to replace dependencies
+Switch between Stripe, Razorpay, or a mock gateway without rewriting the payment logic.
+
+2. Easier unit testing
+Inject a fake or mock dependency instead of making real network calls or accessing real infrastructure.
+
+3. Loose coupling
+The business logic depends on what a dependency can do, rather than exactly how it is created.
+
+4. Centralized object configuration
+An application can configure dependencies in one place instead of scattering object creation 
+across many classes.
+*/
+
+
+class Logger {
+    log(message){
+        console.log("Message log", message)
+    }
+}
+
+class Payment{
+    private logger:Logger
+    constructor(logger:Logger){
+        this.logger = logger
+    }
+
+    payment(amount:number){
+        this.logger.log(`amount paid ${amount}`)
+    }
+}
+
+const logger = new Logger()
+
+const payment = new Payment(logger)   //Send Payment class has logger dependency
+
+payment.payment(100)
