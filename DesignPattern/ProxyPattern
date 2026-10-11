@@ -1,6 +1,14 @@
 /** 
- * 
- * 
+Proxy provides a substitute/representative object that controls access to another object.
+Client
+  |
+  ↓
+ Proxy
+  |
+  ↓
+ Real Object
+
+The client thinks it is communicating with the real object, but the Proxy gets a chance to control, validate, delay, cache, log, restrict, or otherwise manage the request.
 */
 
 
