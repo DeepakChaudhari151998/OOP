@@ -3,7 +3,6 @@
 //In below code we added the discount to payment before bill and also added the login 
 // call sequence Discount-->logging-->Payment
 
-//Decoratore patter very useful to check the authentication ->Bank details->payment
 
 class Payment{
      pay(amount){
