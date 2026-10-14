@@ -1,0 +1,81 @@
+/* Strategy pattern 
+
+The Strategy Design Pattern is a behavioral design pattern that lets you define multiple algorithms, put each algorithm in a 
+separate class or function, and switch between them without changing the code that uses them.
+
+Instead of writing multiple if-else conditions for different ways of doing something, create separate strategies and choose the 
+appropriate one at runtime.
+
+When should you use the Strategy Pattern?
+Use it when you recognize one or more of these situations:
+
+1. Many if-else conditions choose an algorithm
+Example: different discount calculations for regular customers, premium customers, and employees.
+
+2. The algorithm needs to change at runtime
+Example: a customer switches from standard to express shipping before checkout.
+
+3. You want to add new behaviors without modifying existing business logic
+Example: add a new payment provider while keeping checkout independent of its implementation.
+
+4. You want to test algorithms independently
+Example: test discount calculations without running the checkout system or calling real payment APIs.
+
+When should you NOT use it?
+Don't introduce the pattern just because a function exists.
+For example:If there's only one stable tax calculation and no need to swap algorithms, a separate strategy class is unnecessary.
+
+| Pattern              | Main purpose                      | Example                                             |
+| -------------------- | --------------------------------- | --------------------------------------------------- |
+| Strategy             | Select interchangeable algorithms | UPI vs. card payment processing                     |
+| Factory              | Decide which object to create     | Create a UPI or card strategy                       |
+| Decorator            | Add behavior around an object     | Add logging to a payment service                    |
+| Adapter              | Convert an incompatible interface | Wrap a provider's `makePayment()` as `pay()`        |
+| Proxy                | Control access to an object       | Check authorization before allowing payment         |
+| Dependency Injection | Supply dependencies to a class    | Pass the selected payment strategy into the service |
+*/
+
+interface ShippingStrategy {
+    calculateCost(weight:number):number
+}
+
+
+class ExpressShipping implements ShippingStrategy {
+    calculateCost(weight:number):number{
+        return 150 + weight * 20;
+    }
+}
+
+class StandardShipping implements ShippingStrategy {
+    calculateCost(weight:number):number{
+        return 150 + weight * 10;
+    }
+}
+
+class SameDayShipping implements ShippingStrategy {
+    calculateCost(weight:number):number{
+        return 150 + weight * 50;
+    }
+}
+
+
+class ShippingService {
+    constructor(private strategy:ShippingStrategy){}
+
+    getShippingCost(weight:number):number{
+        return this.strategy.calculateCost(weight)
+    }
+}
+
+const shipping = new ShippingService(
+  new ExpressShipping()
+);
+
+console.log(shipping.getShippingCost(2));
+
+
+const shipping_2 = new ShippingService(
+  new SameDayShipping()
+);
+
+console.log(shipping.getShippingCost(1));
