@@ -1,0 +1,96 @@
+/*
+Type:Facade pattern is structure design pattern
+
+Facade Design Pattern is a structural design pattern that provides a simple interface to a complex subsystem of classes.
+- Why: Reduce complexity for the caller.
+- When: When one operation requires coordinating multiple services or classes.
+- How: Create a Facade class that calls the required subsystem methods in the correct order.
+- Real-world example: An OrderFacade.placeOrder() method coordinates cart validation, inventory, payment, shipping, and notifications.
+
+*/
+
+class CartService {
+  validateCart(orderId: string): boolean {
+    console.log(`Validating cart for ${orderId}`);
+    return true;
+  }
+}
+
+class InventoryService {
+  reserveItems(orderId: string): void {
+    console.log(`Reserving inventory for ${orderId}`);
+  }
+}
+
+class PaymentService {
+  processPayment(orderId: string, amount: number): boolean {
+    console.log(`Processing payment of ₹${amount}`);
+    return true;
+  }
+}
+
+class ShippingService {
+  createShipment(orderId: string): void {
+    console.log(`Creating shipment for ${orderId}`);
+  }
+}
+
+class NotificationService {
+  sendConfirmation(orderId: string): void {
+    console.log(`Sending confirmation for ${orderId}`);
+  }
+}
+
+class OrderFacade {
+  constructor(
+    private cart: CartService,
+    private inventory: InventoryService,
+    private payment: PaymentService,
+    private shipping: ShippingService,
+    private notification: NotificationService
+  ) {}
+
+  placeOrder(orderId: string, amount: number): boolean {
+    // 1. Validate the cart
+    if (!this.cart.validateCart(orderId)) {
+      return false;
+    }
+
+    // 2. Reserve inventory
+    this.inventory.reserveItems(orderId);
+
+    // 3. Process payment
+    const paid = this.payment.processPayment(
+      orderId,
+      amount
+    );
+
+    if (!paid) {
+      return false;
+    }
+
+    // 4. Create shipment
+    this.shipping.createShipment(orderId);
+
+    // 5. Notify the customer
+    this.notification.sendConfirmation(orderId);
+
+    return true;
+  }
+}
+
+
+const orderFacade = new OrderFacade(
+  new CartService(),
+  new InventoryService(),
+  new PaymentService(),
+  new ShippingService(),
+  new NotificationService()
+);
+
+const success = orderFacade.placeOrder(
+  "ORDER-101",
+  2500
+);
+
+console.log("Order successful:", success);
